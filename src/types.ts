@@ -3,12 +3,14 @@ export interface ChatMessage {
   id: string;
   role: "user" | "assistant" | "system";
   content: string;
-  date: number;
+  date: string;
   images?: string[];
   audio_url?: string;
   streaming?: boolean;
   model?: string;
   preview?: boolean;
+  isMcpResponse?: boolean;
+  isError?: boolean;
 }
 
 

@@ -43,9 +43,9 @@ export function ChatDemo() {
   }, [msgRenderIndex, renderMessages]);
   
   return (
-    <div className="relative w-full h-full overflow-auto p-4">
-      <h1>聊天界面演示</h1>
-      <div className="relative w-full h-auto mt-4">
+    <div className="relative w-full h-full ">
+      {/* <h1>聊天界面演示</h1> */}
+      <div className="relative w-full h-full mt-4">
         <ChatUI
           messages={messages}
           session={session}

@@ -285,12 +285,10 @@
   display: flex;
   flex-direction: column;
   position: relative; 
-  // height: 100%;
-  // overflow: hidden;
-  // z-index: 1;
-  // height: auto;
-  // min-height: 300px;
-  max-height: 80vh;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+  min-height: 300px;
 }
 
 .chat-body {
@@ -299,13 +297,14 @@
   overflow-x: hidden;
   padding: 20px;
   padding-bottom: 40px;
-  // position: relative;
+  height: auto;
+  position: relative;
   overscroll-behavior: none;
+  max-height: 600px;
 }
 
 .chat-body-main-title {
   cursor: pointer;
-
   &:hover {
     text-decoration: underline;
   }
@@ -320,7 +319,6 @@
 .chat-message {
   display: flex;
   flex-direction: row;
-
   &:last-child {
     animation: slide-in ease 0.3s;
   }
@@ -566,7 +564,7 @@
   flex-direction: column;
   border-top: var(--border-in-light);
   box-shadow: var(--card-shadow);
-
+  height: auto;
   .chat-input-actions {
     .chat-input-action {
       margin-bottom: 10px;
@@ -737,11 +735,12 @@
   position: relative;
   overflow: hidden;
   .chat-body-container {
-    height: 100%;
+    min-height: auto; 
     display: flex;
     flex-direction: column;
     flex: 1;
-    // width: 100%;
+    width: 100%;
+    
   }
   .chat-side-panel {
     position: absolute;

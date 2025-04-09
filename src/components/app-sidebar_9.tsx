@@ -246,37 +246,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </div>
           <SidebarInput placeholder="Type to search..." />
         </SidebarHeader>
-        {/* <SidebarContent>
-          <SidebarGroup className="px-0">
-            <SidebarGroupContent>
-              {sessions.map((item, i) => (
-                <ChatItem
-                  title={item.topic}
-                  time={new Date(item.lastUpdate).toLocaleString()}
-                  count={item.messages.length}
-                  key={item.id}
-                  id={item.id}
-                  index={i}
-                  selected={i === selectedIndex}
-                  onClick={() => {
-                    // navigate(Path.Chat);
-                    selectSession(i);
-                  }}
-                  onDelete={async () => {
-                    // if (
-                    //   (!props.narrow && !isMobileScreen) ||
-                    //   (await showConfirm(Locale.Home.DeleteChat))
-                    // ) {
-                    //   chatStore.deleteSession(i);
-                    // }
-                  }}
-                  // narrow={props.narrow}
-                />
-              ))}
-            </SidebarGroupContent>
-          </SidebarGroup>
-        </SidebarContent> */}
-        < >
+
+        <>
         {sessions.map((item, i) => (
                 <ChatItem
                   title={item.topic}
