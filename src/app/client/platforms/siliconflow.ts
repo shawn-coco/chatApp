@@ -5,15 +5,15 @@ import {
   SILICONFLOW_BASE_URL,
   SiliconFlow,
   DEFAULT_MODELS,
-} from "@/app/constant";
+} from "@/constant";
 import {
-  useAccessStore,
-  useAppConfig,
+  // useAccessStore,
+  // useAppConfig,
   useChatStore,
   ChatMessageTool,
-  usePluginStore,
-} from "@/app/store";
-import { preProcessImageContent, streamWithThink } from "@/app/utils/chat";
+  // usePluginStore,
+} from "@/store/chatStore";
+import { preProcessImageContent, streamWithThink } from "@/utils/chat";
 import {
   ChatOptions,
   getHeaders,
@@ -21,7 +21,7 @@ import {
   LLMModel,
   SpeechOptions,
 } from "../api";
-import { getClientConfig } from "@/app/config/client";
+import { getClientConfig } from "@/config/client";
 import {
   getMessageTextContent,
   getMessageTextContentWithoutThinking,
@@ -30,7 +30,8 @@ import {
 } from "@/app/utils";
 import { RequestPayload } from "./openai";
 
-import { fetch } from "@/app/utils/stream";
+import { fetch } from "@/utils/stream";
+import { DEFAULT_CONFIG } from "@/store/config";
 export interface SiliconFlowListModelResponse {
   object: string;
   data: Array<{
@@ -44,14 +45,14 @@ export class SiliconflowApi implements LLMApi {
   private disableListModels = false;
 
   path(path: string): string {
-    const accessStore = useAccessStore.getState();
+    // const accessStore = useAccessStore.getState();
 
     let baseUrl = "";
 
-    if (accessStore.useCustomConfig) {
-      baseUrl = accessStore.siliconflowUrl;
-    }
-
+    // if (accessStore.useCustomConfig) {
+    //   baseUrl = accessStore.siliconflowUrl;
+    // }
+    baseUrl = SILICONFLOW_BASE_URL
     if (baseUrl.length === 0) {
       const isApp = !!getClientConfig()?.isApp;
       const apiPath = ApiPath.SiliconFlow;
@@ -97,8 +98,9 @@ export class SiliconflowApi implements LLMApi {
     }
 
     const modelConfig = {
-      ...useAppConfig.getState().modelConfig,
-      ...useChatStore.getState().currentSession().mask.modelConfig,
+      // ...useAppConfig.getState().modelConfig,
+      // ...useChatStore.getState().currentSession().mask.modelConfig,
+      ...DEFAULT_CONFIG.modelConfig,
       ...{
         model: options.config.model,
         providerName: options.config.providerName,
@@ -141,17 +143,18 @@ export class SiliconflowApi implements LLMApi {
       );
 
       if (shouldStream) {
-        const [tools, funcs] = usePluginStore
-          .getState()
-          .getAsTools(
-            useChatStore.getState().currentSession().mask?.plugin || [],
-          );
+        // const [tools, funcs] = usePluginStore
+        //   .getState()
+        //   .getAsTools(
+        //     useChatStore.getState().currentSession().mask?.plugin || [],
+        //   );
+        const [tools, funcs] = [null, null];
         return streamWithThink(
           chatPath,
           requestPayload,
           getHeaders(),
           tools as any,
-          funcs,
+          // funcs,
           controller,
           // parseSSE
           (text: string, runTools: ChatMessageTool[]) => {
@@ -185,7 +188,6 @@ export class SiliconflowApi implements LLMApi {
             }
             const reasoning = choices[0]?.delta?.reasoning_content;
             const content = choices[0]?.delta?.content;
-
             // Skip if both content and reasoning_content are empty or null
             if (
               (!reasoning || reasoning.length === 0) &&
@@ -196,7 +198,6 @@ export class SiliconflowApi implements LLMApi {
                 content: "",
               };
             }
-
             if (reasoning && reasoning.length > 0) {
               return {
                 isThinking: true,
@@ -208,7 +209,6 @@ export class SiliconflowApi implements LLMApi {
                 content: content,
               };
             }
-
             return {
               isThinking: false,
               content: "",

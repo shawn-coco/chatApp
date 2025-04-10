@@ -271,6 +271,7 @@ interface ChatStore {
   // 状态
   sessions: ChatSession[];
   currentSessionIndex: number;
+  lastInput: string;
 
   // 操作
   selectSession: (index: number) => void;
@@ -293,6 +294,7 @@ interface ChatStore {
   updateStat: (message: ChatMessage, session: ChatSession) => void;
   summarizeSession: (refreshTitle: boolean, targetSession: ChatSession) => void;
   onNewMessage: (message: ChatMessage, session: ChatSession) => void;
+  setLastInput: (lastInput: string) => void;
 }
 
 
@@ -300,7 +302,7 @@ export const useChatStore = create<ChatStore>((set, _get) => ({
   // 初始状态
   sessions: [createEmptySession()],
   currentSessionIndex: 0,
-  
+  lastInput: "",
   // 选择会话
   selectSession: (index: number) => {
     set({ currentSessionIndex: index });
@@ -394,6 +396,12 @@ export const useChatStore = create<ChatStore>((set, _get) => ({
       return createEmptySession();
     }
     return state.sessions[state.currentSessionIndex];
+  },
+
+  setLastInput(lastInput: string) {
+    set({
+      lastInput,
+    });
   },
 
   // 初始化模拟数据

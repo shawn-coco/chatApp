@@ -6,6 +6,7 @@ import { MarkdownUI } from "./MarkdownUI";
 import clsx from "clsx";
 import { IconButton } from "./button";
 import SendWhiteIcon from "../icons/send-white.svg";
+import { useChatStore } from "@/store/chatStore";
 
 export interface ChatUIProps {
   // 数据
@@ -39,27 +40,20 @@ export interface ChatUIProps {
 export function ChatUI({
   messages,
   session,
-  userInput,
-  promptHints,
   isStreaming,
-  attachedImages,
-  onSend,
-  onUserInputChange,
-  onPromptSelect,
   onDelete,
   onEdit,
   onResend,
-  onImageUpload,
   onTopicChange,
   config,
 }: ChatUIProps) {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-  
+  const [userInput, setUserInput] = useState("");
   const [inputRows, setInputRows] = useState(2);
 
   const [isLoading, setIsLoading] = useState(false);
-
+  const chatStore = useChatStore();
 
   const doSubmit = (userInput: string) => {
     if (userInput.trim() === "") return;
@@ -71,7 +65,7 @@ export function ChatUI({
     //   return;
     // }
     setIsLoading(true);
-    chatStore.onUserInput(userInput, attachImages).then(() => setIsLoading(false));
+    chatStore.onUserInput(userInput).then(() => setIsLoading(false));
     // setAttachImages([]);
     chatStore.setLastInput(userInput);
     setUserInput("");
@@ -79,13 +73,6 @@ export function ChatUI({
     // if (!isMobileScreen) inputRef.current?.focus();
     // setAutoScroll(true);
   };
-
-
-
-
-
-
-
 
   
   return (

@@ -1,13 +1,82 @@
 
 
 
+export const STABILITY_BASE_URL = "https://api.stability.ai";
+
+export const OPENAI_BASE_URL = "https://api.openai.com";
+
+export const ANTHROPIC_BASE_URL = "https://api.anthropic.com";
+
+export const GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/";
+
+export const BAIDU_BASE_URL = "https://aip.baidubce.com";
+
+export const BAIDU_OATUH_URL = `${BAIDU_BASE_URL}/oauth/2.0/token`;
+
+export const BYTEDANCE_BASE_URL = "https://ark.cn-beijing.volces.com";
+
+export const ALIBABA_BASE_URL = "https://dashscope.aliyuncs.com/api/";
+
+export const TENCENT_BASE_URL = "https://hunyuan.tencentcloudapi.com";
+
+export const MOONSHOT_BASE_URL = "https://api.moonshot.cn";
+
+export const IFLYTEK_BASE_URL = "https://spark-api-open.xf-yun.com";
+
+export const DEEPSEEK_BASE_URL = "https://api.deepseek.com";
+
+export const XAI_BASE_URL = "https://api.x.ai";
+
+export const CHATGLM_BASE_URL = "https://open.bigmodel.cn";
+
+export const SILICONFLOW_BASE_URL = "https://api.siliconflow.cn";
+
+export enum ApiPath {
+    Cors = "",
+    Azure = "/api/azure",
+    OpenAI = "/api/openai",
+    Anthropic = "/api/anthropic",
+    Google = "/api/google",
+    Baidu = "/api/baidu",
+    ByteDance = "/api/bytedance",
+    Alibaba = "/api/alibaba",
+    Tencent = "/api/tencent",
+    Moonshot = "/api/moonshot",
+    Iflytek = "/api/iflytek",
+    Stability = "/api/stability",
+    Artifacts = "/api/artifacts",
+    XAI = "/api/xai",
+    ChatGLM = "/api/chatglm",
+    DeepSeek = "/api/deepseek",
+    SiliconFlow = "/api/siliconflow",
+  }
+
+  export enum StoreKey {
+    Chat = "chat-next-web-store",
+    Plugin = "chat-next-web-plugin",
+    Access = "access-control",
+    Config = "app-config",
+    Mask = "mask-store",
+    Prompt = "prompt-store",
+    Update = "chat-update",
+    Sync = "sync",
+    SdList = "sd-list",
+    Mcp = "mcp-store",
+  }
 
 
-
-
-
+  // Google API safety settings, see https://ai.google.dev/gemini-api/docs/safety-settings
+// BLOCK_NONE will not block any content, and BLOCK_ONLY_HIGH will block only high-risk content.
+export enum GoogleSafetySettingsThreshold {
+    BLOCK_NONE = "BLOCK_NONE",
+    BLOCK_ONLY_HIGH = "BLOCK_ONLY_HIGH",
+    BLOCK_MEDIUM_AND_ABOVE = "BLOCK_MEDIUM_AND_ABOVE",
+    BLOCK_LOW_AND_ABOVE = "BLOCK_LOW_AND_ABOVE",
+  }
 
 export const CHAT_PAGE_SIZE = 15;
+
+export const ACCESS_CODE_PREFIX = "nk-";
 
 let seq = 1000; // 内置的模型序号生成器从1000开始
 
@@ -409,7 +478,11 @@ export const DEFAULT_MODELS = [
     })),
 ] as const;
 
-
+export const SiliconFlow = {
+    ExampleEndpoint: SILICONFLOW_BASE_URL,
+    ChatPath: "v1/chat/completions",
+    ListModelPath: "v1/models?&sub_type=chat",
+  };
 
 export enum Path {
     Home = "/",
@@ -426,7 +499,27 @@ export enum Path {
     McpMarket = "/mcp-market",
 }
 
+export const CACHE_URL_PREFIX = "/api/cache";
 
+export const VISION_MODEL_REGEXES = [
+    /vision/,
+    /gpt-4o/,
+    /claude-3/,
+    /gemini-1\.5/,
+    /gemini-exp/,
+    /gemini-2\.0/,
+    /learnlm/,
+    /qwen-vl/,
+    /qwen2-vl/,
+    /gpt-4-turbo(?!.*preview)/, // Matches "gpt-4-turbo" but not "gpt-4-turbo-preview"
+    /^dall-e-3$/, // Matches exactly "dall-e-3"
+    /glm-4v/,
+    /vl/i,
+  ];
+  
+
+export const REQUEST_TIMEOUT_MS = 60000;
+export const REQUEST_TIMEOUT_MS_FOR_THINKING = REQUEST_TIMEOUT_MS * 5;
 
 export enum ServiceProvider {
     OpenAI = "OpenAI",
@@ -463,3 +556,10 @@ export const DEFAULT_TTS_VOICES = [
     "nova",
     "shimmer",
 ];
+
+
+
+export const DEFAULT_GA_ID = "G-89WN60ZK2E";
+
+
+export const EXCLUDE_VISION_MODEL_REGEXES = [/claude-3-5-haiku-20241022/];

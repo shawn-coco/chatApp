@@ -1003,6 +1003,11 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.9.tgz#50dea3616bc8191fb8e112283b49eaff03e78429"
   integrity sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==
 
+"@fortaine/fetch-event-source@^3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@fortaine/fetch-event-source/-/fetch-event-source-3.0.6.tgz#b8552a2ca2c5202f5699b93a92be0188d422b06e"
+  integrity sha512-621GAuLMvKtyZQ3IA6nlDWhV1V/7PGOTNIGLUifxt0KzM+dZIweJ6F3XvQF3QnqeNfS1N7WQ0Kil1Di/lhChEw==
+
 "@hello-pangea/dnd@^16.5.0":
   version "16.6.0"
   resolved "https://registry.yarnpkg.com/@hello-pangea/dnd/-/dnd-16.6.0.tgz#7509639c7bd13f55e537b65a9dcfcd54e7c99ac7"
@@ -2034,6 +2039,11 @@
   integrity sha512-UaicktuQI+9UKyA4njtDOGBD/67t8YEBt2xdfqu8+gP9hqPUPsiXlNPcpS2gVdjmis5GKPG3fCxbQLVgxsQZ8w==
   dependencies:
     csstype "^3.0.2"
+
+"@types/spark-md5@^3.0.5":
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/@types/spark-md5/-/spark-md5-3.0.5.tgz#eddec8639217e518c26e9e221ff56bf5f5f5c900"
+  integrity sha512-lWf05dnD42DLVKQJZrDHtWFidcLrHuip01CtnC2/S6AMhX4t9ZlEUj4iuRlAnts0PQk7KESOqKxeGE/b6sIPGg==
 
 "@types/unist@^2", "@types/unist@^2.0.0":
   version "2.0.11"
@@ -3889,6 +3899,11 @@ iconv-lite@0.6:
   integrity sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==
   dependencies:
     safer-buffer ">= 2.1.2 < 3.0.0"
+
+idb-keyval@^6.2.1:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/idb-keyval/-/idb-keyval-6.2.1.tgz#94516d625346d16f56f3b33855da11bfded2db33"
+  integrity sha512-8Sb3veuYCyrZL+VBt9LJfZjLUPWVvqn8tG28VqYNFCo43KHcKuq+b4EiXGeuaLAQWL2YmyDgMp2aSpH9JHsEQg==
 
 ignore@^5.2.0, ignore@^5.3.1:
   version "5.3.2"
@@ -5766,6 +5781,11 @@ space-separated-tokens@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/space-separated-tokens/-/space-separated-tokens-2.0.2.tgz#1ecd9d2350a3844572c3f4a312bceb018348859f"
   integrity sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==
+
+spark-md5@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/spark-md5/-/spark-md5-3.0.2.tgz#7952c4a30784347abcee73268e473b9c0167e3fc"
+  integrity sha512-wcFzz9cDfbuqe0FZzfi2or1sgyIrsDwmPwfZC4hiNidPdPINjeUwNfv5kldczoEAcjl9Y1L3SM7Uz2PUEQzxQw==
 
 stable-hash@^0.0.5:
   version "0.0.5"
