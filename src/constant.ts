@@ -11,7 +11,22 @@ export const CHAT_PAGE_SIZE = 15;
 
 let seq = 1000; // 内置的模型序号生成器从1000开始
 
-
+export enum ModelProvider {
+    Stability = "Stability",
+    GPT = "GPT",
+    GeminiPro = "GeminiPro",
+    Claude = "Claude",
+    Ernie = "Ernie",
+    Doubao = "Doubao",
+    Qwen = "Qwen",
+    Hunyuan = "Hunyuan",
+    Moonshot = "Moonshot",
+    Iflytek = "Iflytek",
+    XAI = "XAI",
+    ChatGLM = "ChatGLM",
+    DeepSeek = "DeepSeek",
+    SiliconFlow = "SiliconFlow",
+  }
 
 const openaiModels = [
     // As of July 2024, gpt-4o-mini should be used in place of gpt-3.5-turbo,

@@ -1,3 +1,5 @@
+import { ChatMessageTool } from "./store/chatStore";
+
 // types.ts
 export interface ChatMessage {
   id: string;
@@ -11,6 +13,7 @@ export interface ChatMessage {
   preview?: boolean;
   isMcpResponse?: boolean;
   isError?: boolean;
+  tools?: ChatMessageTool[];
 }
 
 
