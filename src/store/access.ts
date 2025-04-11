@@ -132,7 +132,7 @@ const DEFAULT_ACCESS_STATE = {
   siliconflowUrl: DEFAULT_SILICONFLOW_URL,
   siliconflowApiKey: "sk-",
 
-  // server config
+  // server config   
   needCode: true,
   hideUserApiKey: false,
   hideBalanceQuery: false,
