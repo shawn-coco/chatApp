@@ -804,7 +804,6 @@ export const useChatStore = create<ChatStore>((set, _get) => ({
           session.id,
           botMessage.id ?? messageIndex,
         );
-
         console.error("[Chat] failed ", error);
       },
       onController(controller) {

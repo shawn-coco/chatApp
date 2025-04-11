@@ -44,7 +44,8 @@
     "tw-animate-css": "^1.2.5",
     "use-debounce": "^9.0.4",
     "zustand": "^4.3.8",
-    "@fortaine/fetch-event-source": "^3.0.6"
+    "@fortaine/fetch-event-source": "^3.0.6",
+    "heic2any": "^0.0.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

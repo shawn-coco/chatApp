@@ -1,5 +1,5 @@
 // ChatUI.tsx - 纯渲染组件
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import styles from "./styles/chat.module.scss";
 import { ChatMessage, ChatSession } from "../types";
 import { MarkdownUI } from "./MarkdownUI";
@@ -7,6 +7,7 @@ import clsx from "clsx";
 import { IconButton } from "./button";
 import SendWhiteIcon from "../icons/send-white.svg";
 import { useChatStore } from "@/store/chatStore";
+import { Prompt, SubmitKey, useAppConfig } from "@/store/store";
 
 export interface ChatUIProps {
   // 数据
@@ -37,6 +38,9 @@ export interface ChatUIProps {
   }
 }
 
+
+export type RenderPrompt = Pick<Prompt, "title" | "content">;
+
 export function ChatUI({
   messages,
   session,
@@ -51,9 +55,13 @@ export function ChatUI({
   const scrollRef = useRef<HTMLDivElement>(null);
   const [userInput, setUserInput] = useState("");
   const [inputRows, setInputRows] = useState(2);
-
+  const { submitKey, shouldSubmit } = useSubmitHandler();
   const [isLoading, setIsLoading] = useState(false);
   const chatStore = useChatStore();
+  const [promptHints, setPromptHints] = useState<RenderPrompt[]>([]);
+
+
+
 
   const doSubmit = (userInput: string) => {
     if (userInput.trim() === "") return;
@@ -73,6 +81,95 @@ export function ChatUI({
     // if (!isMobileScreen) inputRef.current?.focus();
     // setAutoScroll(true);
   };
+
+
+
+  // only search prompts when user input is short
+  const SEARCH_TEXT_LIMIT = 30;
+  const onInput = (text: string) => {
+    setUserInput(text);
+    // const n = text.trim().length;
+
+    // // clear search results
+    // if (n === 0) {
+    //   setPromptHints([]);
+    // } else if (text.match(ChatCommandPrefix)) {
+    //   setPromptHints(chatCommands.search(text));
+    // } else if (!config.disablePromptHint && n < SEARCH_TEXT_LIMIT) {
+    //   // check if need to trigger auto completion
+    //   if (text.startsWith("/")) {
+    //     let searchText = text.slice(1);
+    //     onSearch(searchText);
+    //   }
+    // }
+  };
+
+
+    // check if should send message
+    const onInputKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      // if ArrowUp and no userInput, fill with last input
+      if (
+        e.key === "ArrowUp" &&
+        userInput.length <= 0 &&
+        !(e.metaKey || e.altKey || e.ctrlKey)
+      ) {
+        setUserInput(chatStore.lastInput ?? "");
+        e.preventDefault();
+        return;
+      }
+      if (shouldSubmit(e) && promptHints.length === 0) {
+        doSubmit(userInput);
+        e.preventDefault();
+      }
+    };
+
+
+    function useSubmitHandler() {
+      const config = useAppConfig();
+      const submitKey = config.submitKey;
+      const isComposing = useRef(false);
+    
+      useEffect(() => {
+        const onCompositionStart = () => {
+          isComposing.current = true;
+        };
+        const onCompositionEnd = () => {
+          isComposing.current = false;
+        };
+    
+        window.addEventListener("compositionstart", onCompositionStart);
+        window.addEventListener("compositionend", onCompositionEnd);
+    
+        return () => {
+          window.removeEventListener("compositionstart", onCompositionStart);
+          window.removeEventListener("compositionend", onCompositionEnd);
+        };
+      }, []);
+    
+      const shouldSubmit = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        // Fix Chinese input method "Enter" on Safari
+        if (e.keyCode == 229) return false;
+        if (e.key !== "Enter") return false;
+        if (e.key === "Enter" && (e.nativeEvent.isComposing || isComposing.current))
+          return false;
+        return (
+          (config.submitKey === SubmitKey.AltEnter && e.altKey) ||
+          (config.submitKey === SubmitKey.CtrlEnter && e.ctrlKey) ||
+          (config.submitKey === SubmitKey.ShiftEnter && e.shiftKey) ||
+          (config.submitKey === SubmitKey.MetaEnter && e.metaKey) ||
+          (config.submitKey === SubmitKey.Enter &&
+            !e.altKey &&
+            !e.ctrlKey &&
+            !e.shiftKey &&
+            !e.metaKey)
+        );
+      };
+    
+      return {
+        submitKey,
+        shouldSubmit,
+      };
+    }
 
   
   return (
@@ -181,9 +278,9 @@ export function ChatUI({
                 ref={inputRef}
                 className={styles["chat-input"]}
                 placeholder={" enter to send, / to search prompts, : to use commands"}
-                // onInput={(e) => onInput(e.currentTarget.value)}
+                onInput={(e) => onInput(e.currentTarget.value)}
                 value={userInput}
-                // onKeyDown={onInputKeyDown}
+                onKeyDown={onInputKeyDown}
                 // onFocus={scrollToBottom}
                 // onClick={scrollToBottom}
                 // onPaste={handlePaste}

@@ -13,7 +13,8 @@ import {
   ChatMessageTool,
   // usePluginStore,
 } from "@/store/chatStore";
-import { preProcessImageContent, streamWithThink } from "@/utils/chat";
+import { preProcessImageContent, 
+  streamWithThink } from "@/utils/chat";
 import {
   ChatOptions,
   getHeaders,
@@ -28,7 +29,7 @@ import {
   isVisionModel,
   getTimeoutMSByModel,
 } from "@/app/utils";
-import { RequestPayload } from "./openai";
+import { RequestPayload } from "@/app/client/platforms/openai";
 
 import { fetch } from "@/utils/stream";
 import { DEFAULT_CONFIG } from "@/store/config";
@@ -234,7 +235,6 @@ export class SiliconflowApi implements LLMApi {
       } else {
         const res = await fetch(chatPath, chatPayload);
         clearTimeout(requestTimeoutId);
-
         const resJson = await res.json();
         const message = this.extractMessage(resJson);
         options.onFinish(message, res);

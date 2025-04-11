@@ -97,6 +97,16 @@ export enum ModelProvider {
     SiliconFlow = "SiliconFlow",
   }
 
+
+  export const OpenaiPath = {
+    ChatPath: "v1/chat/completions",
+    SpeechPath: "v1/audio/speech",
+    ImagePath: "v1/images/generations",
+    UsagePath: "dashboard/billing/usage",
+    SubsPath: "dashboard/billing/subscription",
+    ListModelPath: "v1/models",
+  };
+
 const openaiModels = [
     // As of July 2024, gpt-4o-mini should be used in place of gpt-3.5-turbo,
     // as it is cheaper, more capable, multimodal, and just as fast. gpt-3.5-turbo is still available for use in the API.
